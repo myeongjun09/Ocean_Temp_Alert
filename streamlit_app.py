@@ -4,19 +4,20 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 
+# -----------------------
 # Matplotlib 한글 폰트 설정
-# 시스템에 나눔고딕이 설치되어 있지 않다면 설치해야 합니다.
-# 아래 코드는 로컬 환경에서 나눔고딕 폰트가 설치되어 있다고 가정합니다.
-try:
-    font_path = fm.findfont(fm.FontProperties(family='NanumGothic'))
-    plt.rc('font', family='NanumGothic')
-    plt.rcParams['axes.unicode_minus'] = False
-except:
-    # 나눔고딕 폰트가 없을 경우 다른 폰트 사용
-    # 예: Windows 환경의 맑은 고딕
+# -----------------------
+# 운영체제에 따라 폰트 경로를 다르게 설정
+if 'Malgun Gothic' in [f.name for f in fm.fontManager.ttflist]:
     plt.rc('font', family='Malgun Gothic')
     plt.rcParams['axes.unicode_minus'] = False
-
+elif 'NanumGothic' in [f.name for f in fm.fontManager.ttflist]:
+    plt.rc('font', family='NanumGothic')
+    plt.rcParams['axes.unicode_minus'] = False
+else:
+    st.warning("경고: 시스템에 한글 폰트가 설치되어 있지 않아 글자가 깨질 수 있습니다. 나눔고딕 폰트 설치를 권장합니다.")
+    plt.rc('font', family='DejaVu Sans') # 기본 폰트로 대체
+    
 # -----------------------
 # 페이지 기본 설정
 # -----------------------
